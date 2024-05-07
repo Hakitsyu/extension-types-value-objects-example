@@ -4,11 +4,11 @@ import 'package:test/test.dart';
 import 'shared/is_boolean.dart';
 
 void main() {
-  equals_test();
-  sum_test();
+  testEquals();
+  testSum();
 }
 
-void equals_test() {
+void testEquals() {
   const cases = [
     [10.0, 20.0, false],
     [30.0, 45.0, false],
@@ -26,14 +26,14 @@ void equals_test() {
         final p3 = caze[2] as bool;
 
         group('class', () {
-            test('${p1} is equal to ${p2}', () {
+            test('$p1 is equal to $p2', () {
                 final result = MoneyClass(p1) == MoneyClass(p2);
                 expect(result, isBoolean(p3));
             });
         });
 
         group('extension types', () {
-            test('${p1} is equal to ${p2}', () {
+            test('$p1 is equal to $p2', () {
                 final result = MoneyExtensionType(p1) == MoneyExtensionType(p2);
                 expect(result, isBoolean(p3));
             });
@@ -42,7 +42,7 @@ void equals_test() {
   });
 }
 
-void sum_test() {
+void testSum() {
   const cases = [
     [10.0, 20.0, 30.0],
     [20.0, 20.0, 40.0],
@@ -57,7 +57,7 @@ void sum_test() {
         final p3 = caze[2] as double;
 
         group('class', () {
-            test('${p1} + ${p2} is equal to ${p3}', () {
+            test('$p1 + $p2 is equal to $p3', () {
                 final result = (MoneyClass(p1) + MoneyClass(p2).value) as MoneyClass;
                 
                 expect(result.value, equals(p3));
@@ -65,7 +65,7 @@ void sum_test() {
         });
 
         group('extension types', () {
-            test('${p1} + ${p2} is equal to ${p3}', () {
+            test('$p1 + $p2 is equal to $p3', () {
                 final result = MoneyExtensionType(p1) + MoneyExtensionType(p2);
                 expect(result, equals(p3));
             });
