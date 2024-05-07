@@ -6,6 +6,7 @@ import 'shared/is_boolean.dart';
 void main() {
   testEquals();
   testSum();
+  testAmount();
 }
 
 void testEquals() {
@@ -21,23 +22,23 @@ void testEquals() {
 
   group('equals', () {
     cases.forEach((caze) { 
-        final p1 = caze[0] as double;
-        final p2 = caze[1] as double;
-        final p3 = caze[2] as bool;
+      final p1 = caze[0] as double;
+      final p2 = caze[1] as double;
+      final p3 = caze[2] as bool;
 
-        group('class', () {
-            test('$p1 is equal to $p2', () {
-                final result = MoneyClass(p1) == MoneyClass(p2);
-                expect(result, isBoolean(p3));
-            });
+      group('class', () {
+        test('$p1 is equal to $p2', () {
+            final result = MoneyClass(p1) == MoneyClass(p2);
+            expect(result, isBoolean(p3));
         });
+      });
 
-        group('extension types', () {
-            test('$p1 is equal to $p2', () {
-                final result = MoneyExtensionType(p1) == MoneyExtensionType(p2);
-                expect(result, isBoolean(p3));
-            });
+      group('extension types', () {
+        test('$p1 is equal to $p2', () {
+          final result = MoneyExtensionType(p1) == MoneyExtensionType(p2);
+          expect(result, isBoolean(p3));
         });
+      });
     });
   });
 }
@@ -52,24 +53,57 @@ void testSum() {
   
   group('sum', () {
     cases.forEach((caze) { 
-        final p1 = caze[0] as double;
-        final p2 = caze[1] as double;
-        final p3 = caze[2] as double;
+      final p1 = caze[0] as double;
+      final p2 = caze[1] as double;
+      final p3 = caze[2] as double;
 
-        group('class', () {
-            test('$p1 + $p2 is equal to $p3', () {
-                final result = (MoneyClass(p1) + MoneyClass(p2).value) as MoneyClass;
-                
-                expect(result.value, equals(p3));
-            });
+      group('class', () {
+        test('$p1 + $p2 is equal to $p3', () {
+          final result = (MoneyClass(p1) + MoneyClass(p2).value) as MoneyClass;
+          
+          expect(result.value, equals(p3));
         });
+      });
 
-        group('extension types', () {
-            test('$p1 + $p2 is equal to $p3', () {
-                final result = MoneyExtensionType(p1) + MoneyExtensionType(p2);
-                expect(result, equals(p3));
-            });
+      group('extension types', () {
+        test('$p1 + $p2 is equal to $p3', () {
+          final result = MoneyExtensionType(p1) + MoneyExtensionType(p2);
+          expect(result, equals(p3));
         });
+      });
+    });
+  });
+}
+
+void testAmount() {
+  const cases = [
+    [10.0, true],
+    [5000.0, true],
+    [15000.0, true],
+    [-100.0, false],
+    [-1000.0, false],
+    [-500.0, false],
+    [-0.5, false]
+  ];
+
+  group('amount', () {
+    cases.forEach((caze) { 
+      final p1 = caze[0] as double;
+      final p2 = caze[1] as bool;
+
+      group('class', () {
+        test('$p1 amount is valid', () {
+          expect(() => MoneyClass(p1), p2 
+            ? isNotNull : throwsA(TypeMatcher<InvalidMoneyAmountException>()));
+        });
+      });
+
+      group('extension types', () {
+        test('$p1 amount is valid', () {
+          expect(() => MoneyExtensionType(p1), p2 
+            ? isNotNull : throwsA(TypeMatcher<InvalidMoneyAmountException>()));
+        });
+      });
     });
   });
 }
