@@ -1,11 +1,27 @@
-extension type MoneyExtensionType(double _value) implements double {
+class InvalidMoneyAmountException implements Exception { }
+
+extension type MoneyExtensionType._(double _value) implements double {
+    factory MoneyExtensionType(double value) {
+      if (value < 0) {
+        throw InvalidMoneyAmountException();
+      }
+
+      return MoneyExtensionType._(value);
+    }
+
     double get value => _value;
 }
 
 class MoneyClass {
-    final double _value;
+    late final double _value;
 
-    MoneyClass(this._value);
+    MoneyClass(double value) {
+      if (value < 0) {
+        throw InvalidMoneyAmountException();
+      }
+
+      _value = value;
+    }
 
     double get value => _value;
 
