@@ -1,6 +1,6 @@
 class InvalidMoneyAmountException implements Exception { }
 
-class MoneyValidator {
+class Validator {
   static void validate(double value) {
     if (value < 0) {
       throw InvalidMoneyAmountException();
@@ -9,41 +9,41 @@ class MoneyValidator {
 }
 
 extension type MoneyExtensionType._(double _value) implements double {
-    factory MoneyExtensionType(double value) {
-      MoneyValidator.validate(value);
+  factory MoneyExtensionType(double value) {
+    Validator.validate(value);
 
-      return MoneyExtensionType._(value);
-    }
+    return MoneyExtensionType._(value);
+  }
 
-    double get value => _value;
+  double get value => _value;
 }
 
 class MoneyClass {
-    late final double _value;
+  late final double _value;
 
-    MoneyClass(double value) {
-      MoneyValidator.validate(value);
+  MoneyClass(double value) {
+    Validator.validate(value);
 
-      _value = value;
-    }
+    _value = value;
+  }
 
-    double get value => _value;
+  double get value => _value;
 
-    operator + (double other) {
-        return MoneyClass(value + other);
-    }
+  operator + (double other) {
+      return MoneyClass(value + other);
+  }
 
-    operator - (double other) {
-        return MoneyClass(value - other);
-    }
+  operator - (double other) {
+      return MoneyClass(value - other);
+  }
 
-    @override
-    bool operator ==(Object other) =>
-        identical(this, other) ||
-        other is MoneyClass &&
-        runtimeType == other.runtimeType &&
-        _value == other.value; 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is MoneyClass &&
+      runtimeType == other.runtimeType &&
+      _value == other.value; 
 
-    @override
-    int get hashCode => _value.hashCode;
+  @override
+  int get hashCode => _value.hashCode;
 }
