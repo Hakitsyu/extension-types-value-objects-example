@@ -1,10 +1,16 @@
 class InvalidMoneyAmountException implements Exception { }
 
+class MoneyValidator {
+  static void validate(double value) {
+    if (value < 0) {
+      throw InvalidMoneyAmountException();
+    }
+  }
+}
+
 extension type MoneyExtensionType._(double _value) implements double {
     factory MoneyExtensionType(double value) {
-      if (value < 0) {
-        throw InvalidMoneyAmountException();
-      }
+      MoneyValidator.validate(value);
 
       return MoneyExtensionType._(value);
     }
@@ -16,9 +22,7 @@ class MoneyClass {
     late final double _value;
 
     MoneyClass(double value) {
-      if (value < 0) {
-        throw InvalidMoneyAmountException();
-      }
+      MoneyValidator.validate(value);
 
       _value = value;
     }
