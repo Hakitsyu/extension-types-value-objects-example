@@ -1,8 +1,6 @@
 import 'package:extension_types_value_objects_example/src/money/money.dart';
 import 'package:test/test.dart';
 
-import 'shared/is_boolean.dart';
-
 void main() {
   testEquals();
   testSum();
@@ -29,14 +27,14 @@ void testEquals() {
       group('class', () {
         test('$p1 is equal to $p2', () {
             final result = MoneyClass(p1) == MoneyClass(p2);
-            expect(result, isBoolean(p3));
+            expect(result, equals(p3));
         });
       });
 
       group('extension types', () {
         test('$p1 is equal to $p2', () {
           final result = MoneyExtensionType(p1) == MoneyExtensionType(p2);
-          expect(result, isBoolean(p3));
+          expect(result, equals(p3));
         });
       });
     });
